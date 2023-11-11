@@ -20,7 +20,7 @@
             echo "<td>" . $row['segundo_apellido'] . "</td>";
             echo "<td>" . $row['representante'] . "</td>";
             echo "<td>" . $row['fecha_nacimiento'] . "</td>";
-            echo "<td>" . $row['edad'] . "</td>";
+          
             echo "<td>" . $row['estado_civil'] . "</td>";
             echo "<td>" . $row['direccion'] . "</td>";
             echo "<td>" . $row['telefono'] . "</td>";

@@ -20,7 +20,6 @@ if (mysqli_num_rows($result) > 0) {
     $segundo_apellido = $row['segundo_apellido'];
     $representante = $row['representante'];
     $fecha_nacimiento = $row['fecha_nacimiento'];
-    $edad = $row['edad'];
     $estado_civil = $row['estado_civil'];
     $direccion = $row['direccion'];
     $telefono = $row['telefono'];
@@ -39,7 +38,6 @@ if (mysqli_num_rows($result) > 0) {
     Segundo apellido: <input type='text' name='segundo_apellido' value='$segundo_apellido'><br>
     Representante: <input type='text' name='representante' value='$representante'><br>
     Fecha de nacimiento: <input type='date' name='fecha_nacimiento' value='$fecha_nacimiento'><br>
-    Edad: <input type='text' name='edad' value='$edad'><br>
     Estado civil: <input type='text' name='estado_civil' value='$estado_civil'><br>
     Direccion: <input type='text' name='direccion' value='$direccion'><br>
     Telefono: <input type='tel' name='telefono' value='$telefono'><br>

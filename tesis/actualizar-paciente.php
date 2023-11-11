@@ -25,8 +25,7 @@ $correo = $_POST['correo'];
 
 // Actualizar los datos del paciente en la base de datos
 $sql = "UPDATE paciente SET cedula = '$cedulaPaciente', primer_nombre = '$primer_nombre', segundo_nombre = '$segundo_nombre', primer_apellido = '$primer_apellido',
-segundo_apellido = '$segundo_apellido', representante = '$representante', fecha_nacimiento ='$fecha_nacimiento',
-edad = '$edad', estado_civil = '$estado_civil', direccion = '$direccion', telefono ='$telefono',
+segundo_apellido = '$segundo_apellido', representante = '$representante', fecha_nacimiento ='$fecha_nacimiento', estado_civil = '$estado_civil', direccion = '$direccion', telefono ='$telefono',
 sexo = '$sexo', lugar_nacimiento = '$lugar_nacimiento', nacionalidad ='$nacionalidad', correo = '$correo' WHERE id = '$idPaciente'";
 
 

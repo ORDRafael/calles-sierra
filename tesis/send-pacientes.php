@@ -38,9 +38,9 @@ if (isset($_POST["send"])){
         $correo = trim($_POST['correo']);
         
         $consulta = "INSERT INTO paciente(cedula, primer_nombre, segundo_nombre,primer_apellido,segundo_apellido,
-        representante,fecha_nacimiento,edad,estado_civil,direccion,telefono,sexo,lugar_nacimiento,nacionalidad,correo) 
+        representante,fecha_nacimiento,estado_civil,direccion,telefono,sexo,lugar_nacimiento,nacionalidad,correo) 
                 VALUES ('$cedula', '$primer_nombre', '$segundo_nombre','$primer_apellido','$segundo_apellido',
-                '$representante','$fecha_nacimiento', '$edad', '$estado_civil','$direccion','$telefono',
+                '$representante','$fecha_nacimiento', '$estado_civil','$direccion','$telefono',
                 '$sexo','$lugar_nacimiento','$nacionalidad','$correo')";
         $resultado = mysqli_query($conexion, $consulta);
     if($resultado) {

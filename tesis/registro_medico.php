@@ -1,5 +1,6 @@
 <?php 
 include("send.php");
+include("menu.php"); 
 ?>
 
 <!DOCTYPE html>

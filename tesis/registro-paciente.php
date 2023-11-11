@@ -1,6 +1,7 @@
 <?php 
 include("send-pacientes.php");
 ?>
+<?php include("menu.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">

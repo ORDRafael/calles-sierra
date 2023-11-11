@@ -1,6 +1,7 @@
 <?php 
 
 include("conexion.php");
+include("menu.php"); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
