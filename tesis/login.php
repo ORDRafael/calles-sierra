@@ -54,6 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button class="boton" type="submit" name="send" value="Enviar">Enviar</button>
             </div>
         </div>
+
+        <div class="registrar">
+        <a href="registro.php">Registrar usuario</a>
+        </div>
         
         <?php
         // Mostrar mensaje de error si existe

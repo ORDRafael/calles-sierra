@@ -11,7 +11,6 @@ include("menu.php");
     <title>Document</title>
 </head>
 <body>
-    lista medicos
     <?php
     include("medicos.php");
      ?>

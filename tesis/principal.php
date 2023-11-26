@@ -12,7 +12,7 @@
         <li><a href="lista-paciente.php">Lista de pacientes</a></li>
         <li><a href="registro_medico.php">Registrar medicos</a></li>
         <li><a href="lista-medicos.php">Lista de medicos</a></li>
-        <li><a href="calendario.html">Agenda</a></li>
+        <li><a href="citas.php">Citas</a></li>
     </ul>
 </body>
 </html>

@@ -12,7 +12,6 @@ if (isset($_POST["send"])){
         strlen($_POST['segundo_apellido']) >= 1 && 
         strlen($_POST['representante']) >= 1 &&
         strlen($_POST['fecha_nacimiento']) >= 1 && 
-        strlen($_POST['edad']) >= 1 && 
         strlen($_POST['estado_civil']) >= 1 &&
         strlen($_POST['direccion']) >= 1 &&
         strlen($_POST['telefono']) >= 1 && 
@@ -28,7 +27,6 @@ if (isset($_POST["send"])){
         $segundo_apellido = trim($_POST['segundo_apellido']);
         $representante = trim($_POST['representante']);
         $fecha_nacimiento = trim($_POST['fecha_nacimiento']);
-        $edad = trim($_POST['edad']);
         $estado_civil = trim($_POST['estado_civil']);
         $direccion = trim($_POST['direccion']);
         $telefono = trim($_POST['telefono']);

@@ -49,9 +49,6 @@ include("send-pacientes.php");
             <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento">
         </div>
 
-        <div>
-            <input type="int" name="edad" placeholder="Edad">
-        </div>
             <!-- COLOCARLO TIPO CHECHBOX -->
         <div>
             <input type="text" name="estado_civil" placeholder="Estado civil">

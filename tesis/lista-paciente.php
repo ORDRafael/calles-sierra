@@ -57,8 +57,8 @@ if (mysqli_num_rows($result) > 0) {
         echo "<td>".$row['correo']."</td>";
         echo "<td>
         <a href='editar_paciente.php?id=".$row['id']."'>Editar</a>
-        | <a href='eliminar-paciente.php?id=".$row['id']."'>Eliminar</a>
-        |  <button class='reportes-btn'>Reportes</button>
+        | <a href='eliminar_paciente.php?id=".$row['id']."'>Eliminar</a>
+        |  <a href='crear_informe.php?id=".$row['id']."'>Reportes</a>
         </td>";
         echo "</tr>";
     }
