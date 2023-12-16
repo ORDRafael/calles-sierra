@@ -1,5 +1,6 @@
 <?php 
 include("conexion.php");
+include("enviar_mensaje_telegram.php");
 
 // Consulta para obtener la lista de pacientes
 $sqlPacientes = "SELECT * FROM paciente";
@@ -56,6 +57,7 @@ if ($resultadoCitas->num_rows > 0) {
 } else {
     echo "No hay citas registradas.";
 }
+
 
 // Cerrar la conexión a la base de datos
 $conexion->close();

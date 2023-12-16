@@ -8,15 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = $_POST["password"];
 
     // Verificar la autenticación en la base de datos
-    $query = "SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?";
+    $query = "SELECT contrasena FROM usuarios WHERE usuario = ?";
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param("ss", $usuario, $contrasena);
+    $stmt->bind_param("s", $usuario);
     $stmt->execute();
     $result = $stmt->get_result();
     $usuarioDB = $result->fetch_assoc();
     $stmt->close();
 
-    if ($usuarioDB) {
+    if ($usuarioDB && password_verify($contrasena, $usuarioDB['contrasena'])) {
         // Autenticación exitosa, redirigir a la página de inicio
         header("Location: principal.php");
         exit();

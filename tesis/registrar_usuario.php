@@ -5,6 +5,8 @@ include("conexion.php");
 $username = $_POST['username'];
 $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];
+$correo = $_POST['correo'];
+$confirm_correo = $_POST['confirm_correo'];
 
 // Verifica si las contraseñas coinciden
 if ($password !== $confirm_password) {
@@ -12,28 +14,24 @@ if ($password !== $confirm_password) {
   exit;
 }
 
-// Aquí puedes agregar lógica adicional para verificar la fortaleza de la contraseña, validar el formato del correo electrónico, etc.
+// Validación adicional de la contraseña (por ejemplo, longitud mínima, caracteres especiales, complejidad)
 
 // Hashear la contraseña antes de guardarla en la base de datos
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// Guarda los datos del usuario en tu base de datos
-// Código para insertar los datos en la tabla de usuarios
+// Preparar y escapar los datos
+$stmt = mysqli_prepare($conexion, "INSERT INTO usuarios (usuario, contrasena, correo) VALUES (?, ?, ?)");
+mysqli_stmt_bind_param($stmt, "sss", $username, $hashed_password, $correo);
 
-// Mostrar un mensaje de registro exitoso
-echo 'Registro exitoso. Ahora puedes iniciar sesión con tu nueva cuenta.';
-
-// Construir la consulta SQL 
-$sql = "INSERT INTO usuarios (usuario, contrasena) VALUES ('$username', '$hashed_password')";
-
-// Ejecutar la consulta
-if (mysqli_query($conexion, $sql)) {
+// Ejecutar la consulta preparada
+if (mysqli_stmt_execute($stmt)) {
     echo "Registro exitoso. Ahora puedes iniciar sesión con tu nueva cuenta.";
+    header("Location: login.php");
 } else {
     echo "Error al registrar el usuario: " . mysqli_error($conexion);
+    header("Location: registro.php");
 }
-?>
 
-REVISA EL PROBLEMA DE LA CONTRASENA, SALE HASHEADA EN LA BASE DE DATOS Y NO DEJA INGRESAR CON LA REAL
-rafa 12345
-12345 12345
+mysqli_stmt_close($stmt);
+mysqli_close($conexion);
+?>

@@ -9,16 +9,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_medico = $_POST["medico"];
     $fecha = $_POST["fecha"];
     $hora = $_POST["hora"];
-   
 
     // Procesar los datos y realizar la inserción en la base de datos
-$sqlInsertCita = "INSERT INTO citas (id_paciente, id_medico, fecha, hora) VALUES ('$id_paciente', '$id_medico', '$fecha', '$hora')";
+    $sqlInsertCita = "INSERT INTO citas (id_paciente, id_medico, fecha, hora) VALUES ('$id_paciente', '$id_medico', '$fecha', '$hora')";
 
-if ($conexion->query($sqlInsertCita) === TRUE) {
-    echo "La cita se ha guardado exitosamente";
-} else {
-    echo "Error al guardar la cita: " . $conexion->error;
-}   
+    if ($conexion->query($sqlInsertCita) === TRUE) {
+        echo "La cita se ha guardado exitosamente";
+        
+        // Obtener el ID del chat desde el formulario
+        $chatId = $_POST["chatId"];
+        
+        // Mensaje a enviar al bot de Telegram
+        $mensaje = "Estimado paciente, su cita ha sido agendada con éxito";
+
+        // URL de la API de Telegram para enviar mensajes
+        $url = "https://api.telegram.org/bot6826692261:AAGTPmTTshN5afklFj0qdlrO_vcRrNoeC1U/sendMessage";
+
+        // Parámetros de la solicitud HTTP
+        $datos = array(
+            "chat_id" => $chatId,
+            "text" => $mensaje
+        );
+
+        // Realizar la solicitud HTTP a la API de Telegram
+        $options = array(
+            "http" => array(
+                "header" => "Content-type: application/x-www-form-urlencoded\r\n",
+                "method" => "POST",
+                "content" => http_build_query($datos)
+            )
+        );
+        $context = stream_context_create($options);
+        $resultado = file_get_contents($url, false, $context);
+
+        // Verificar si se envió correctamente el mensaje
+        if ($resultado === false) {
+            echo "Error al enviar el mensaje al bot de Telegram";
+        } else {
+            echo "Mensaje enviado al bot de Telegram";
+        }
+    } else {
+        echo "Error al guardar la cita: " . $conexion->error;
+    }
 
     // Redirigir nuevamente a la misma página para evitar envío duplicado del formulario
     header("Location: citas.php");
@@ -36,7 +68,7 @@ if ($conexion->query($sqlInsertCita) === TRUE) {
 <body>
     <h1>Agendado de Citas</h1>
 
-    <form method="POST">
+    <form id="formulario" action="" method="post">
         <label for="paciente">Paciente:</label>
         <select name="paciente" required>
             <?php
@@ -79,8 +111,10 @@ if ($conexion->query($sqlInsertCita) === TRUE) {
         <label for="hora">Hora:</label>
         <input type="time" name="hora" required><br>
 
-        <input type="submit" value="Agendar Cita">
+        <button type="submit" value="Agendar Cita">Agendar Cita</button>
+        
     </form>
+  
 
     <h2>Citas Agendadas</h2>
 
@@ -119,10 +153,10 @@ if ($conexion->query($sqlInsertCita) === TRUE) {
         }
 
         echo "</table>";
-        } else {
+    } else {
         echo "No hay citas agendadas.";
-        }
-        ?>
+    }
+    ?>
 
 </body>
 </html>
