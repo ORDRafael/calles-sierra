@@ -2,6 +2,13 @@
 include("conexion.php");
 include("menu.php");
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'correo/PHPMailer/Exception.php';
+require 'correo/PHPMailer/PHPMailer.php';
+require 'correo/PHPMailer/SMTP.php';
+
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos enviados por el formulario
@@ -10,48 +17,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha = $_POST["fecha"];
     $hora = $_POST["hora"];
 
+
     // Procesar los datos y realizar la inserción en la base de datos
-    $sqlInsertCita = "INSERT INTO citas (id_paciente, id_medico, fecha, hora) VALUES ('$id_paciente', '$id_medico', '$fecha', '$hora')";
+$sqlInsertCita = "INSERT INTO citas (id_paciente, id_medico, fecha, hora) VALUES ('$id_paciente', '$id_medico', '$fecha', '$hora')";
 
-    if ($conexion->query($sqlInsertCita) === TRUE) {
-        echo "La cita se ha guardado exitosamente";
+if ($conexion->query($sqlInsertCita) === TRUE) {
+    echo "La cita se ha guardado exitosamente";
+
+    // Envío de correo electrónico con PHPMailer
+    $mail = new PHPMailer();
+
+    try {
+        //Server settings
+        //$mail->SMTPDebug = 0;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'rafaelordaz16@gmail.com';                     //SMTP username
+        $mail->Password   = 'hxutbsizyqdqasid';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    
+        //Recipients
+        $mail->setFrom('rafaelordaz16@gmail.com', 'Rafael Ordaz');
+        $mail->addAddress('rafaelordaz16@gmail.com');     //Add a recipient
+    
+    
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'CITA AGENDADA';
+        $mail->Body    = 'Se ha agendado con exito la cita en el hospital calles sierra';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+        $mail->send();
+        echo 'Message has been sent';
         
-        // Obtener el ID del chat desde el formulario
-        $chatId = $_POST["chatId"];
-        
-        // Mensaje a enviar al bot de Telegram
-        $mensaje = "Estimado paciente, su cita ha sido agendada con éxito";
-
-        // URL de la API de Telegram para enviar mensajes
-        $url = "https://api.telegram.org/bot6826692261:AAGTPmTTshN5afklFj0qdlrO_vcRrNoeC1U/sendMessage";
-
-        // Parámetros de la solicitud HTTP
-        $datos = array(
-            "chat_id" => $chatId,
-            "text" => $mensaje
-        );
-
-        // Realizar la solicitud HTTP a la API de Telegram
-        $options = array(
-            "http" => array(
-                "header" => "Content-type: application/x-www-form-urlencoded\r\n",
-                "method" => "POST",
-                "content" => http_build_query($datos)
-            )
-        );
-        $context = stream_context_create($options);
-        $resultado = file_get_contents($url, false, $context);
-
-        // Verificar si se envió correctamente el mensaje
-        if ($resultado === false) {
-            echo "Error al enviar el mensaje al bot de Telegram";
-        } else {
-            echo "Mensaje enviado al bot de Telegram";
-        }
-    } else {
-        echo "Error al guardar la cita: " . $conexion->error;
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-
+}
     // Redirigir nuevamente a la misma página para evitar envío duplicado del formulario
     header("Location: citas.php");
     exit();
@@ -68,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Agendado de Citas</h1>
 
-    <form id="formulario" action="" method="post">
+    <form method="POST">
         <label for="paciente">Paciente:</label>
         <select name="paciente" required>
             <?php
@@ -111,10 +115,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="hora">Hora:</label>
         <input type="time" name="hora" required><br>
 
-        <button type="submit" value="Agendar Cita">Agendar Cita</button>
-        
+        <input type="submit" value="Agendar Cita">
     </form>
-  
 
     <h2>Citas Agendadas</h2>
 
@@ -126,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 INNER JOIN paciente ON citas.id_paciente = paciente.id
                 INNER JOIN medicos ON citas.id_medico = medicos.id";
     $resultadoCitas = $conexion->query($sqlCitas);
-   
+
     if ($resultadoCitas->num_rows > 0) {
         // Muestra las citas agendadas en una tabla
         echo "<table class='tabla-pacientes'>
@@ -153,10 +155,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         echo "</table>";
-    } else {
+        } else {
         echo "No hay citas agendadas.";
-    }
-    ?>
+        }
+        ?>
 
 </body>
 </html>

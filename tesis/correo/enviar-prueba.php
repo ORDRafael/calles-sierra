@@ -29,7 +29,7 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'PRUEBA TESIS';
+    $mail->Subject = 'REGISTRO USUARIO (PERSONAL)';
     $mail->Body    = 'Te has registrado con exito en el sitio web del Hospital Dr. Rafael
     Calles Sierra';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
