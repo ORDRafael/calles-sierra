@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2024 a las 00:43:49
+-- Tiempo de generación: 05-02-2024 a las 05:27:53
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -47,7 +47,10 @@ INSERT INTO `citas` (`id_citas`, `fecha`, `hora`, `id_paciente`, `id_medico`, `l
 (76, '2024-02-23', '07:00', 7, 50, '2024-02-02 20:07:54', NULL),
 (77, '2024-02-24', '07:00', 12, 50, '2024-02-02 20:08:15', NULL),
 (78, '2024-02-24', '08:00', 17, 50, '2024-02-02 20:33:36', NULL),
-(80, '2024-02-07', '09:00', 11, 49, '2024-02-02 23:39:58', NULL);
+(81, '2024-02-16', '09:00', 24, 52, '2024-02-04 00:17:10', NULL),
+(82, '2024-02-16', '10:00', 25, 52, '2024-02-04 00:31:11', NULL),
+(83, '2024-02-16', '10:00', 28, 51, '2024-02-05 03:05:08', NULL),
+(84, '2024-02-18', '17:00', 33, 50, '2024-02-05 03:34:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -71,15 +74,8 @@ CREATE TABLE `informes` (
 --
 
 INSERT INTO `informes` (`id`, `contenido`, `id_paciente`, `diagnostico`, `medicamentos`, `evolucion`, `recomendaciones`, `fecha`) VALUES
-(39, '1', 7, '1', '1', '1', '1', '2024-01-31'),
-(40, 'AAAAAAAA', 7, 'Robert', 'Ctm', 'Teodio', 'Inutil', '2024-01-31'),
-(41, 'AAAAAAAA', 7, 'Robert', 'Ctm', 'Teodio', 'Inutil', '2024-01-31'),
-(42, 'AAAAAAAA', 7, 'Robert', 'Ctm', 'Teodio', 'Inutil', '2024-01-31'),
-(44, 'AAAAAA', 7, 'AAAAA', 'AAAAAA', 'AAAAAAA', 'AAAAAAAAA', '2024-01-31'),
 (51, '1', 10, '1', '1', '1', '1', '2024-01-31'),
-(52, '2', 10, '2', '2', '2', '2', '2024-01-31'),
-(55, '1', 7, '1', '1', '1', '1', '2024-02-01'),
-(56, 'Paila', 7, 'Hola que tal?', 'Paracetamoool', 'Uuuuf', 'F', '2024-02-02');
+(52, '2', 10, '2', '2', '2', '2', '2024-01-31');
 
 -- --------------------------------------------------------
 
@@ -102,11 +98,9 @@ CREATE TABLE `medicos` (
 --
 
 INSERT INTO `medicos` (`id`, `nombre`, `apellido`, `cedula`, `telefono`, `correo`, `especialidad`) VALUES
-(49, 'Rafael', 'Ordaz', 2147483647, 414656005, 'rafaelordaz16@gmail.com', 'Cardiologia'),
-(50, 'Yoli', 'De Ordaz', 11280459, 2147483647, 'yolisora@gmail.com', 'Gastroenterología'),
-(51, 'Zury', 'Kar', 30233368, 2147483647, 'zuryk@gmail.com', 'Endocrinología'),
-(52, 'Test', 'Test', 123, 0, 'Test@gmail.com', 'Cardiologia'),
-(53, 'Freilix', 'Revilla', 28546673, 2147483647, 'freilix@gmail.com', 'Dermatología');
+(49, 'Rafael', 'Ordaz', 11280451, 414656005, 'rafaelordaz16@gmail.com', 'Cardiologia'),
+(50, 'Yoli', 'De Ordaz', 11280459, 2147483647, 'yolisora@gmail.com', 'Cardiologia'),
+(71, 'arwer', 'werw', 234234, 2342, '2@2sdf', 'Cardiologia');
 
 -- --------------------------------------------------------
 
@@ -137,10 +131,8 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`id`, `cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `representante`, `fecha_nacimiento`, `estado_civil`, `direccion`, `telefono`, `sexo`, `lugar_nacimiento`, `nacionalidad`, `correo`) VALUES
-(7, 99999999, 'Test', 'Test', 'Test', 'Test', 'Test', '2022-12-31', 'Test', 'Test', 'Test', 'Test', 'Test', 'Testt', 'Test@gmail.com'),
-(10, 27169435, 'Rafael', 'Alfonso', 'Ordaz', 'Bermudez', 'No', '2000-04-16', 'Soltero', 'La puerta', '04146560053', 'Masculino', 'Mcbo', 'Venezolano', 'rafa@gmail.com'),
-(11, 6291831, 'Papa', 'papa', 'papa', 'papa', 'papa', '1993-12-31', 'casado', 'casa', '0231231231', 'masc', 'ccs', 'vene', 'papa@gmail.com'),
-(24, 1, '1', '1', '1', '1', '1', '0000-00-00', '1', '1', '1', '1', '1', '1', '1@1');
+(10, 62918311, 'Rafael', 'Alfonso', 'Ordaz', 'Bermudez', 'No', '2000-04-16', 'Soltero', 'La puerta', '04146560053', 'Masculino', 'Mcbo', 'Venezolano', 'rafa@gmail.com'),
+(11, 6291831, 'Papa', 'papa', 'papa', 'papa', 'papa', '1993-12-31', 'casado', 'casa', '0231231231', 'masc', 'ccs', 'vene', 'papa@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -152,7 +144,7 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `usuario` varchar(30) NOT NULL,
   `contrasena` varchar(100) NOT NULL,
-  `jerarquia` varchar(100) NOT NULL,
+  `rol` varchar(100) NOT NULL,
   `correo` varchar(30) NOT NULL,
   `id_usuario_modificacion` int(11) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
@@ -163,9 +155,9 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `contrasena`, `jerarquia`, `correo`, `id_usuario_modificacion`, `token`, `expiration`) VALUES
-(155, 'test', '$2y$10$8lcD4d4y1iPTUtd5D2fny.OtuJMTm02N92F2ocVhL7ygs/vvpOldK', '', 'test@gmail.com', 0, NULL, NULL),
-(156, 'admin', '$2y$10$OZFbWOl1istMEoYquwNwj.cKMfCjre8UHn9NTIXZ6qD8tyyal0Iv2', 'administrador', 'admin@gmail.com', 0, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `usuario`, `contrasena`, `rol`, `correo`, `id_usuario_modificacion`, `token`, `expiration`) VALUES
+(155, 'test', '$2y$10$8lcD4d4y1iPTUtd5D2fny.OtuJMTm02N92F2ocVhL7ygs/vvpOldK', 'administrador', 'test@gmail.com', 0, NULL, NULL),
+(157, 'rafael', '$2y$10$uaO5BbGTItN03YKsJtDgveORQ4kaCkbGG1i2HPyct1RbEzj9XGX/y', '', 'rafaelordaz16@gmail.com', 0, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -210,31 +202,31 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_citas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_citas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `informes`
 --
 ALTER TABLE `informes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `medicos`
 --
 ALTER TABLE `medicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- Restricciones para tablas volcadas
